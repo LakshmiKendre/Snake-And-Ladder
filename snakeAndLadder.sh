@@ -1,8 +1,9 @@
-#!/bin/bash -x
+#!/bin/bash
 
 echo "Welcome to Snake & Ladder"
 
 START_POSITION=0
+WIN_POSITION=100
 playerPosition=0
 
 dieRoll(){
@@ -29,8 +30,16 @@ option=$((RANDOM%3))
 		playerPosition=$(($playerPosition + $dieValue))
 		;;
 	esac
-echo $playerPosition
+
 }
 
-checkSnakeOrLadder 
+while (( playerPosition<WIN_POSITION ))
+do
+	checkSnakeOrLadder
+	if (( playerPosition<0 ))
+	then
+		playerPosition=$START_POSITION
+	fi
+echo $playerPosition 
+done
 
