@@ -21,7 +21,7 @@ option=$((RANDOM%3))
 
 	case $option in
 	$NO_PLAY)
-		playerPosition=$playerPosition 
+		playerPosition=$playerPosition
 		;;
 	$SNAKE)
 		playerPosition=$(($playerPosition - $dieValue))
@@ -40,6 +40,11 @@ do
 	then
 		playerPosition=$START_POSITION
 	fi
-echo $playerPosition 
+
+	if (( playerPosition > WIN_POSITION ))
+	then
+		playerPosition=$((playerPosition-dieValue))
+	fi
+echo "Player Position: $playerPosition"
 done
 
