@@ -2,9 +2,13 @@
 
 echo "Welcome to Snake & Ladder"
 
+declare -A Game
+
 START_POSITION=0
 WIN_POSITION=100
+
 playerPosition=0
+diceCount=0
 
 dieRoll(){
 randomCheck=$((RANDOM%6 + 1))
@@ -32,19 +36,23 @@ option=$((RANDOM%3))
 	esac
 
 }
-
+playTillReachWinPosition(){
 while (( playerPosition<WIN_POSITION ))
 do
 	checkSnakeOrLadder
-	if (( playerPosition<0 ))
+	if (( playerPosition<START_POSITION ))
 	then
 		playerPosition=$START_POSITION
-	fi
-
-	if (( playerPosition > WIN_POSITION ))
+	elif (( playerPosition > WIN_POSITION ))
 	then
 		playerPosition=$((playerPosition-dieValue))
 	fi
-echo "Player Position: $playerPosition"
+	Game[$diceCount]=$playerPosition
+	echo "Dice Count= $diceCount" "Player position=${Game[$diceCount]}"
+	((diceCount++))
 done
+} 
+
+playTillReachWinPosition
+
 
